@@ -1,4 +1,4 @@
-# 7/25 Changelog: 
+# 7/25 Changelog:
 - Fixed the cli inferencing traceback.
 - SQL Databases implemented for formanting and training stop button.
 - Gradio browser tab renamed to `Mangio-RVC-Web 💻`.
