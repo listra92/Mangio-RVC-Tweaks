@@ -43,7 +43,7 @@ from train.process_ckpt import change_info, extract_small_model, merge, show_inf
 from vc_infer_pipeline import VC
 from sklearn.cluster import MiniBatchKMeans
 
-import sqlite3
+import sqlite3 #SQL database :)
 
 def clear_sql(signal, frame):
     cursor.execute("DELETE FROM formant_data")
