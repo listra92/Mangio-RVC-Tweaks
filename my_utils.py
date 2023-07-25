@@ -19,25 +19,19 @@ def load_audio(file, sr, DoFormant, Quefrency, Timbre):
             file.strip(" ").strip('"').strip("\n").strip('"').strip(" ")
         )  # 防止小白拷路径头尾带了空格和"和回车
         file_formanted = file.strip(" ").strip('"').strip("\n").strip('"').strip(" ")
-        with open("formanting.txt", "r") as fvf:
-            content = fvf.readlines()
-            if "True" in content[0].split("\n")[0]:
-                # print("true")
-                DoFormant = True
-                Quefrency, Timbre = content[1].split("\n")[0], content[2].split("\n")[0]
 
-            else:
-                # print("not true")
-                DoFormant = False
+        cursor.execute("SELECT Quefrency, Timbre, DoFormant FROM formant_data")
+        Quefrency, Timbre, DoFormant = cursor.fetchone()
+        #print(f"dofor={bool(DoFormant)} timbr={Timbre} quef={Quefrency}\n")
+        if bool(DoFormant):
 
-        if DoFormant:
             # os.system(f"stftpitchshift -i {file} -q {Quefrency} -t {Timbre} -o {file_formanted}")
             # print('stftpitchshift -i "%s" -p 1.0 --rms -w 128 -v 8 -q %s -t %s -o "%s"' % (file, Quefrency, Timbre, file_formanted))
             print("formanting...")
 
             os.system(
-                'stftpitchshift -i "%s" -q %s -t %s -o "%sFORMANTED"'
-                % (file, Quefrency, Timbre, file_formanted)
+                'stftpitchshift.exe -i "%s" -q %s -t %s -o "%sFORMANTED"'
+                % (file_formanted, Quefrency, Timbre, file_formanted)
             )
             print("formanted!")
             # filepraat = (os.path.abspath(os.getcwd()) + '\\' + file).replace('/','\\')
