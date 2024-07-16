@@ -90,6 +90,10 @@ class PreProcess:
                                     'aiff', 'webm', 'ac3'}
         
         try:
+            if is_normalize:
+                print("Normalization enabled.")
+            else:
+                print("Normalization bypassed.")
             if file_extension in supported_file_extensions:
                 if not check_audio_duration(path): return
                 audio = load_audio(path, self.sr, DoFormant=False)
