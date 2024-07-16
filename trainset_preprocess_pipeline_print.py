@@ -9,6 +9,8 @@ sr = int(sys.argv[2])
 n_p = int(sys.argv[3])
 exp_dir = sys.argv[4]
 noparallel = sys.argv[5] == "True"
+is_normalize = (sys.argv[6] == 1)
+s_threshold = sys.argv[7]
 import numpy as np, os, traceback
 from slicer2 import Slicer
 import librosa, traceback
@@ -37,7 +39,7 @@ class PreProcess:
     def __init__(self, sr, exp_dir):
         self.slicer = Slicer(
             sr=sr,
-            threshold=-42,
+            threshold=s_threshold,
             min_length=1500,
             min_interval=400,
             hop_size=15,
@@ -62,9 +64,10 @@ class PreProcess:
         if tmp_max > 2.5:
             print("%s-%s-%s-filtered" % (idx0, idx1, tmp_max))
             return
-        tmp_audio = (tmp_audio / tmp_max * (self.max * self.alpha)) + (
-            1 - self.alpha
-        ) * tmp_audio
+        if is_normalize:
+            tmp_audio = (tmp_audio / tmp_max * (self.max * self.alpha)) + (
+                1 - self.alpha
+            ) * tmp_audio
         wavfile.write(
             "%s/%s_%s.wav" % (self.gt_wavs_dir, idx0, idx1),
             self.sr,
