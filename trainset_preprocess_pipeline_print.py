@@ -37,6 +37,7 @@ def println(strr):
 
 class PreProcess:
     def __init__(self, sr, exp_dir):
+        print(f"Silence threshold: {s_threshold} dB")
         self.slicer = Slicer(
             sr=sr,
             threshold=s_threshold,
