@@ -9,8 +9,8 @@ sr = int(sys.argv[2])
 n_p = int(sys.argv[3])
 exp_dir = sys.argv[4]
 noparallel = sys.argv[5] == "True"
-is_normalize = (sys.argv[6] == 1)
-s_threshold = sys.argv[7]
+is_normalize = (sys.argv[6] == "1")
+s_threshold = int(sys.argv[7])
 import numpy as np, os, traceback
 from slicer2 import Slicer
 import librosa, traceback
