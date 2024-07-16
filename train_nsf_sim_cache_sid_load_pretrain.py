@@ -106,6 +106,10 @@ def run(rank, n_gpus, hps):
     if torch.cuda.is_available():
         torch.cuda.set_device(rank)
 
+    if hps.train.fp16_run:
+        print("Using fp16")
+    else:
+        print("Using fp32")
     if hps.if_f0 == 1:
         train_dataset = TextAudioLoaderMultiNSFsid(hps.data.training_files, hps.data)
     else:
