@@ -356,6 +356,13 @@ def get_hparams(init=True):
     parser.add_argument(
         "-li", "--log_interval", type=int, required=True, help="log interval"
     )
+    parser.add_argument(
+        "-h",
+        "--is_half",
+        type=int,
+        required=True,
+        help="if fp16 or fp32, 1 or 0",
+    )
 
     args = parser.parse_args()
     name = args.experiment_dir
@@ -397,9 +404,11 @@ def get_hparams(init=True):
     hparams.data.training_files = "%s/filelist.txt" % experiment_dir
 
     hparams.train.log_interval = args.log_interval
+    hparams.train.fp16_run = (args.is_half == 1)
 
     # Update log_interval in the 'train' section of the config dictionary
     config["train"]["log_interval"] = args.log_interval
+    config["train"]["fp16_run"] = (args.is_half == 1)
 
     # Save the updated config back to the config_save_path
     with open(config_save_path, "w") as f:
