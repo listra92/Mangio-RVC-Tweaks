@@ -357,7 +357,7 @@ def get_hparams(init=True):
         "-li", "--log_interval", type=int, required=True, help="log interval"
     )
     parser.add_argument(
-        "-h",
+        "-f1",
         "--is_half",
         type=int,
         required=True,
